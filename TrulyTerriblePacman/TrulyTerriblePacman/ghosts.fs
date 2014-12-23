@@ -1,6 +1,6 @@
 (*need to write pathFromTo*)
 (* Binky chases pacman directly*)
-(* pacmanPos and BlinkyPos are of the form (x,y) *)
+(* pacmanPos and blinkyPos are of the form (x,y) *)
 let blinkyMove (pacmanPos:int*int) (blinkyPos:int*int) :int*int = 
   let pathToPacman = pathFromTo blinkyPos pacmanPos 
  in
