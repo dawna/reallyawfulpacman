@@ -76,7 +76,7 @@ type Game1 () as x =
 
     let mutable spriteBatch = null
 
-    let mutable MainPlayer = Player(50,50)
+    let MainPlayer = Player(50,50)
     let IHandler = InputHandler()
 
     override x.Initialize() = 
