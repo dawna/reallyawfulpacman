@@ -1,4 +1,4 @@
-﻿open PlatformerGame
+﻿open PacmanGame
  
 []
 let main argv =
