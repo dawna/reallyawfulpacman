@@ -8,15 +8,15 @@ type Game1 () as x =
 
     do x.Content.RootDirectory <- "Content"
     let graphics = new GraphicsDeviceManager(x)
-    let mutable spriteBatch = new SpriteBatch (x.GraphicsDevice)
+
+    let mutable spriteBatch = null
 
     override x.Initialize() = 
-        //do spriteBatch
         do base.Initialize()
         ()
 
     override x.LoadContent() =
-        ()
+        spriteBatch <- new SpriteBatch(x.GraphicsDevice)
 
     override x.Update (gameTime) =
         ()

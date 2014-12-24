@@ -48,7 +48,6 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.fs" />
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="SDL.dll" />
@@ -56,6 +55,7 @@
     <None Include="Game1.cs" />
     <Compile Include="ghosts.fs" />
     <Compile Include="PacmanGame.fs" />
+    <Compile Include="Program.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>

@@ -28,3 +28,5 @@
 //  | Some (hd::tl) -> hd
 //  | _ -> Failure "Pinky's pathfind failed"
 //;;
+
+module BenjamminSux
