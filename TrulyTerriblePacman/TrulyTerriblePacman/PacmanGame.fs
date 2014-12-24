@@ -53,6 +53,7 @@ type Player(xVal : int, yVal : int) =
 
 
 type InputHandler () = 
+
     member this.HandleInput(e : Entity, keyUp : Keys, keyDown : Keys, keyRight : Keys, keyLeft : Keys) : Command  = 
         let ks = Keyboard.GetState()
         if ks.IsKeyDown(keyUp)
@@ -93,7 +94,7 @@ type Game1 () as x =
 
     override x.Draw (gameTime) =
         do x.GraphicsDevice.Clear Color.CornflowerBlue
-        spriteBatch.Draw(MainPlayer.Bounds, Color.White)
+        //spriteBatch.Draw(MainPlayer.Bounds, Color.White)
         ()
 
 
