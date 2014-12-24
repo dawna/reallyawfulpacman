@@ -7,9 +7,11 @@ open Microsoft.Xna.Framework.Input
 type Entity (xVal : int , yVal : int, speed : int) =
     let mutable x = xVal
     let mutable y = yVal
+    let speed = speed
 
     member this.X with get() = x and set v = x <- v
     member this.Y with get() = y and set v = y <- v
+    member this.Speed with get() = speed
 
     abstract Update : unit -> unit
     default this.Update() = ()
@@ -30,29 +32,40 @@ type MoveToCommand (e : Entity, xVal : int, yVal : int) =
         MoveTo(e, xVal, yVal)
         ()
 
+type NullCommand () = 
+    inherit Command()
+
+    override x.Execute() =
+        ()
+
 type Player(xVal : int, yVal : int) =
     inherit Entity ( xVal, yVal, 10)
 
     static member width = 50
     static member height = 50
 
-//    member this.Move(keyUp : Keys) (keyDown : Keys) (keyRight : Keys) (keyLeft : Keys)= 
-//        let ks = Keyboard.GetState()
-//        if ks.IsKeyDown(keyUp)
-//            then y <- y - speed
-//        else if ks.IsKeyDown(keyDown)
-//            then y <- y + speed
-//        else if ks.IsKeyDown(keyRight)
-//            then x <- x + speed
-//        else if ks.IsKeyDown(keyLeft)
-//            then x <- x - speed
+    member this.Bounds
+        with get() = new Rectangle(base.X, base.Y, 50, 50)
 
     override x.Update() = 
         ()
 
 
- 
-let MainPlayer = Player(50, 50)  
+
+type InputHandler () = 
+    member this.HandleInput(e : Entity, keyUp : Keys, keyDown : Keys, keyRight : Keys, keyLeft : Keys) : Command  = 
+        let ks = Keyboard.GetState()
+        if ks.IsKeyDown(keyUp)
+            then MoveToCommand(e, e.X, e.Y - e.Speed) :> Command
+        elif ks.IsKeyDown(keyDown)
+            then MoveToCommand(e, e.X, e.Y + e.Speed) :> Command
+        elif ks.IsKeyDown(keyRight)
+            then MoveToCommand(e, e.X, e.Y + e.Speed) :> Command
+        elif ks.IsKeyDown(keyLeft)
+            then MoveToCommand(e, e.X, e.Y - e.Speed) :> Command
+        else NullCommand() :> Command
+
+
 
 type Game1 () as x = 
     inherit Game()
@@ -62,8 +75,12 @@ type Game1 () as x =
 
     let mutable spriteBatch = null
 
+    let mutable MainPlayer = Player(50,50)
+    let IHandler = InputHandler()
+
     override x.Initialize() = 
         do base.Initialize()
+        let InputHandler = ()
         ()
 
     override x.LoadContent() =
@@ -71,10 +88,12 @@ type Game1 () as x =
 
     override x.Update (gameTime) =
         MainPlayer.Update()
+        let cmd : Command = IHandler.HandleInput(MainPlayer :> Entity, Keys.Up, Keys.Down, Keys.Right, Keys.Left)
         ()
 
     override x.Draw (gameTime) =
         do x.GraphicsDevice.Clear Color.CornflowerBlue
+        spriteBatch.Draw(MainPlayer.Bounds, Color.White)
         ()
 
 
